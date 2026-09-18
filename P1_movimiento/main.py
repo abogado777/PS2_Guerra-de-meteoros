@@ -20,7 +20,7 @@ COLOR_JUGADOR = (0, 200, 255)
 JUGADOR_ANCHO, JUGADOR_ALTO = 50, 20
 jugador_x = ANCHO // 2 - JUGADOR_ANCHO // 2
 jugador_y = ALTO - 50
-VELOCIDAD_JUGADOR = 6  # píxeles que se mueve por cuadro
+VELOCIDAD_JUGADOR = 20  # píxeles que se mueve por cuadro
 
 corriendo = True
 while corriendo:
@@ -30,19 +30,24 @@ while corriendo:
 
     # TODO 1: Obtén el estado de todas las teclas presionadas.
     # Pista: pygame.key.get_pressed() devuelve una lista de booleanos.
-    teclas = None
+    teclas = pygame.key.get_pressed()
 
     # TODO 2: Si se presiona la flecha izquierda o "A", disminuye jugador_x
     # (recuerda que en pygame, x=0 es el borde izquierdo)
     # Pista: teclas[pygame.K_LEFT] o teclas[pygame.K_a]
+    if evento.type == pygame.KEYDOWN:
+        if teclas[pygame.K_LEFT] or teclas[pygame.K_a]:
+            jugador_x += VELOCIDAD_JUGADOR
 
     # TODO 3: Si se presiona la flecha derecha o "D", aumenta jugador_x
     # Pista: teclas[pygame.K_RIGHT] o teclas[pygame.K_d]
-
+    if evento.type == pygame.KEYDOWN:
+        if teclas[pygame.K_RIGHT] or teclas[pygame.K_d]:
+            jugador_x -= VELOCIDAD_JUGADOR
     # TODO 4: Evita que el jugador se salga de la pantalla por los lados.
     # Pista: usa dos condicionales que comparen jugador_x con 0
     # y con (ANCHO - JUGADOR_ANCHO)
-
+    jugador_x = max(0, min(jugador_x, ANCHO - JUGADOR_ANCHO))
     pantalla.fill(COLOR_FONDO)
     pygame.draw.rect(
         pantalla, COLOR_JUGADOR, (jugador_x, jugador_y, JUGADOR_ANCHO, JUGADOR_ALTO)

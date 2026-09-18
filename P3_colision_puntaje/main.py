@@ -21,6 +21,13 @@ COLOR_METEORITO = (255, 100, 60)
 COLOR_TEXTO = (255, 255, 255)
 
 fuente = pygame.font.SysFont(None, 36)
+fuente_grande = pygame.font.SysFont(None, 64)
+
+sprite_jugador = pygame.image.load("MEDIA/infinityguante.png").convert_alpha()
+sprite_meteorito = pygame.image.load("MEDIA/Av.png").convert_alpha()
+sprite_jugador = pygame.transform.scale(sprite_jugador, (50, 50))
+sprite_meteorito = pygame.transform.scale(sprite_meteorito, (50, 50))
+
 
 JUGADOR_ANCHO, JUGADOR_ALTO = 50, 20
 jugador_x = ANCHO // 2 - JUGADOR_ANCHO // 2
@@ -80,10 +87,9 @@ while corriendo:
     # en el centro de la pantalla en vez de (o además de) seguir el juego normal.
 
     pantalla.fill(COLOR_FONDO)
-    pygame.draw.rect(pantalla, COLOR_JUGADOR, jugador_rect)
-    for meteorito in meteoritos:
-        pygame.draw.rect(pantalla, COLOR_METEORITO, meteorito)
-
+    pantalla.blit(sprite_jugador, (jugador_x,jugador_y))
+    for meteoritos in meteoritos:
+        pantalla.blit(sprite_meteorito, (meteorito.x, meteorito.y))
     pygame.display.flip()
     reloj.tick(FPS)
 
